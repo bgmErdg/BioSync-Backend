@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | BioSync</title>
+    <!-- CSS yolunu Flask formatına getiriyoruz -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="auth-body">
     <div class="auth-container">
-        <h1>New Profile</h1>
-        <p>Initialize your biological database</p>
+        <h1>Join BioSync</h1>
+        <p>Create your workstation account</p>
         
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -17,10 +20,12 @@
 
         <form method="POST">
             <input type="text" name="username" placeholder="Choose Username" required>
-            <input type="password" name="password" placeholder="Choose Password" required>
-            <button type="submit">Initialize System</button>
+            <input type="password" name="password" placeholder="Create Password" required>
+            <button type="submit">Create Account →</button>
         </form>
-        <a href="/login" class="sub-link">Back to Login</a>
+        
+        <!-- Login sayfasına dönüş linkini de Flask formatına alalım -->
+        <a href="{{ url_for('login') }}" class="sub-link">Already have an account? Login</a>
     </div>
 </body>
 </html>
