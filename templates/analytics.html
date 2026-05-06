@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analytics | BioSync</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=16">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+</head>
+<body>
+    
+    <nav class="sidebar">
+        <div class="user-profile">
+            <div class="profile-pic-container" onclick="document.getElementById('file-input').click()">
+                <img src="{{ url_for('static', filename='uploads/' + current_user.profile_pic) }}" id="sidebar-avatar" onerror="this.src='https://ui-avatars.com/api/?name={{ current_user.username }}&background=f7f7f5&color=333333&bold=true'">
+                <div class="overlay"><span class="material-icons-round">edit</span></div>
+            </div>
+            <span>{{ current_user.username }}'s Workspace</span>
+            <input type="file" id="file-input" style="display: none;" accept="image/*" onchange="uploadAvatar(this)">
+        </div>
+        
+        <div class="menu-group">
+            <label>PAGES</label>
+            <a href="/dashboard"><span class="material-icons-round">dashboard</span> Dashboard</a>
+            <a href="/analytics" class="active"><span class="material-icons-round">analytics</span> Analytics</a>
+        </div>
+
+        <div class="bottom-menu">
+            <a href="/logout" class="logout-btn"><span class="material-icons-round">logout</span> Logout</a>
+        </div>
+    </nav>
+
+    <main class="content">
+        <header class="top-bar">
+            <div class="breadcrumbs">BioSync / Analytics / <b>Activity Heatmap</b></div>
+        </header>
+
+        <div class="page-cover">
+            <h1>Activity Heatmap</h1>
+            <p class="subtitle">365 Days of Dominant Biological Rhythms</p>
+        </div>
+
+        <div class="notion-block" style="flex-direction: column; align-items: flex-start;">
+            <div class="heatmap-legend">
+                <div class="legend-item"><span class="box color-sleep"></span> Sleep</div>
+                <div class="legend-item"><span class="box color-work"></span> Work</div>
+                <div class="legend-item"><span class="box color-social"></span> Socialise</div>
+                <div class="legend-item"><span class="box color-labor"></span> Labor</div>
+            </div>
+            
+            <div class="heatmap-container">
+                <div id="leetcode-heatmap" class="leetcode-grid">
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/script.js?v=16"></script>
+</body>
+</html>
