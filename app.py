@@ -17,6 +17,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+# --- MODELLER ---
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
@@ -33,6 +34,7 @@ class DailyRecord(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# --- ROTALAR ---
 @app.route('/')
 def home():
     if current_user.is_authenticated: 
@@ -76,13 +78,11 @@ def dashboard():
 def analytics():
     return render_template('analytics.html', current_user=current_user)
 
-# --- İŞTE EKSİK OLAN LOGOUT KISMI ---
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
-# ------------------------------------
 
 @app.route('/api/heatmap')
 @login_required
@@ -162,7 +162,10 @@ def calculate():
 
     return jsonify({"state": state, "message": message})
 
+# --- VERİTABANI OLUŞTURMA SİHRİ ---
+# Bu blok gunicorn (Render) kullanırken de çalışması için dışarıda durmalı.
+with app.app_context():
+    db.create_all()
+
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
