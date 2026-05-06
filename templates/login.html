@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | BioSync</title>
+    <!-- Tasarımı geri getiren sihirli satır -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="auth-body">
@@ -9,6 +12,7 @@
         <h1>BioSync OS</h1>
         <p>Login to your workspace</p>
         
+        <!-- Hata mesajlarını (şifre yanlış vb.) gösteren bölüm -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div class="error-msg">{{ messages[0] }}</div>
@@ -20,7 +24,11 @@
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Continue →</button>
         </form>
-        <a href="/register" class="sub-link">Create an account</a>
+        
+        <a href="{{ url_for('register') }}" class="sub-link">Create an account</a>
     </div>
+
+    <!-- Eğer script.js kullanıyorsan onu da böyle eklemelisin -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
